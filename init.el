@@ -27,6 +27,11 @@
 	x-select-enable-clipboard t)
   (text-scale-adjust 1))
 
+;; Not on mac:
+(when (not (eq system-type 'darwin))
+  (text-scale-adjust -1))
+
+
 
 (setq user-mail-address "knutoh@gmail.com")
 (setq user-full-name "Knut Helland")
