@@ -17,24 +17,27 @@
 
 (setq MY-EMACS-FOLDER (file-name-directory (or load-file-name buffer-file-name)))
 
+
 ;; Mac specifics:
 (when (eq system-type 'darwin)
   (setq mac-option-modifier nil
 	mac-command-modifier 'meta
 ;	mac-function-modifier 'hyper
         mac-function-modifier 'ctrl
-	x-select-enable-clipboard t))
+	x-select-enable-clipboard t)
+  (text-scale-adjust 1))
 
-(text-scale-adjust 1)
 
 (setq user-mail-address "knutoh@gmail.com")
 (setq user-full-name "Knut Helland")
 
+
 ;; Turn off menubar and toolbar and disable splash screen.
-(menu-bar-mode nil)
-(tool-bar-mode 0) ; <- Had to remove this on my mac.
-(scroll-bar-mode 0) ; <- Had to remove this too on mac.
-(transient-mark-mode 0)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(transient-mark-mode -1)
+(setq inhibit-startup-message t)
 (setq inhibit-splash-screen t)
 
 ;; Don't want my emacs to create a lot of files: (I know the risk)
@@ -49,6 +52,7 @@
 
 (load-file (concat MY-EMACS-FOLDER "/knut-fn.el"))
 (add-to-list 'load-path (concat MY-EMACS-FOLDER "/auto-complete"))
+
 
 ;; Load packages:
 (add-to-list 'load-path MY-EMACS-FOLDER)
@@ -102,7 +106,7 @@
 (defun settings ()
   "Open .emacs file"
   (interactive)
-  (find-file (concat MY-EMACS-FOLDER "/.emacs")))
+  (find-file (concat MY-EMACS-FOLDER "/init.el")))
 
 
 ;; Expand-region.el
