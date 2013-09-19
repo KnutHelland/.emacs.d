@@ -29,7 +29,7 @@
 
 ;; Not on mac:
 (when (not (eq system-type 'darwin))
-  (text-scale-adjust -1))
+  (set-face-attribute 'default nil :height 100))
 
 
 
@@ -241,6 +241,8 @@ querying the user."
 
 (global-unset-key (kbd "M-l"))
 (global-unset-key (kbd "M-u"))
+
+(global-set-key (kbd "C-x m") 'magit-status)
 
 
 ;; (global-set-key (
