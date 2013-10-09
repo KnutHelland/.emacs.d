@@ -62,6 +62,7 @@
 ;; Load packages:
 (add-to-list 'load-path MY-EMACS-FOLDER)
 (add-to-list 'load-path (concat MY-EMACS-FOLDER "/jade-mode"))
+(add-to-list 'load-path (concat MY-EMACS-FOLDER "/emacs-eclim"))
 (require 'auto-complete)
 (require 'clojure-mode)
 (require 'markdown-mode)
@@ -76,6 +77,13 @@
 (require 'jade-mode)
 (require 'less-css-mode)
 (require 'go-mode)
+(require 'eclim)
+(global-eclim-mode)
+(require 'eclimd)
+(require 'auto-complete-config)
+(ac-config-default)
+(require 'ac-emacs-eclim-source)
+(ac-emacs-eclim-config)
 
 (require 'flymake-node-jshint)
 (require 'flymake-cursor)
@@ -244,7 +252,14 @@ querying the user."
 
 (global-set-key (kbd "C-x m") 'magit-status)
 
+(global-set-key (kbd "M-O") 'eclim-java-import-organize)
 
+(add-hook 'eclim-mode-hook
+	  (lambda ()
+	    (fci-mode)
+	    (setq c-basic-offset 4
+		  tab-width 4
+		  indent-tabs-mode t)))
 ;; (global-set-key (
 ;;                  [?\M-f ?\M-b ?\C-  ?\C-  ?\M-b ?\M-c nil]))
 
