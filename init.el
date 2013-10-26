@@ -93,6 +93,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.styl$" . sws-mode))
 (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
+(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
