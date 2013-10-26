@@ -261,6 +261,12 @@ querying the user."
 	    (setq c-basic-offset 4
 		  tab-width 4
 		  indent-tabs-mode t)))
+
+(add-hook
+ 'markdown-mode-hook
+ (lambda ()
+   (define-key markdown-mode-map (kbd "M-p")  (lambda () (interactive) (previous-line 5)))
+   (define-key markdown-mode-map (kbd "M-n")  (lambda () (interactive) (next-line 5)))))
 ;; (global-set-key (
 ;;                  [?\M-f ?\M-b ?\C-  ?\C-  ?\M-b ?\M-c nil]))
 
