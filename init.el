@@ -6,7 +6,13 @@
                          ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 
-
+(setenv "GOPATH" "/Users/knut/uis/gopath")
+(setenv "PATH"
+  (concat
+   "/Users/knut/uis/gopath/bin" path-separator
+   (getenv "PATH")
+  )
+)
 ;; Path to my Emacs folder This is the folder where I put extra modes
 ;; and stuff that I like. And in Dropbox so I can have the same file
 ;; on all computers ;)
@@ -14,6 +20,8 @@
 ;			      (eq system-type 'linux))
 ;			  "/home/knut/Dropbox/resources/emacs"
 ;			"x:/Dropbox/resources/emacs"))
+
+(setq visible-bell t)
 
 (setq MY-EMACS-FOLDER (file-name-directory (or load-file-name buffer-file-name)))
 
@@ -56,6 +64,7 @@
 
 
 (load-file (concat MY-EMACS-FOLDER "/knut-fn.el"))
+(load-file (concat MY-EMACS-FOLDER "/2048.el"))
 (add-to-list 'load-path (concat MY-EMACS-FOLDER "/auto-complete"))
 
 
@@ -76,7 +85,20 @@
 (require 'sws-mode)
 (require 'jade-mode)
 (require 'less-css-mode)
-(require 'go-mode)
+(require 'protobuf-mode)
+;(require 'go-mode)
+
+(setq gofmt-command "goimports")
+(add-to-list 'load-path "/usr/local/Cellar/go/1.2/libexec/misc/emacs")
+(require 'go-mode-load)
+(setq go-mode-hook nil)
+(add-hook 'go-mode-hook (lambda ()
+                          (setq tab-width 2)
+                          (local-set-key (kbd "M-.") 'godef-jump)
+                          (local-set-key (kbd "C-x M-j") 'gofmt)
+			  (fci-mode)))
+
+
 (require 'eclim)
 (global-eclim-mode)
 (require 'eclimd)
@@ -84,12 +106,17 @@
 (ac-config-default)
 (require 'ac-emacs-eclim-source)
 (ac-emacs-eclim-config)
+(require 'frame-cmds)
 
-(require 'flymake-node-jshint)
-(require 'flymake-cursor)
-(add-hook 'js-mode-hook (lambda () (flymake-mode 1)))
-(custom-set-faces
- '(flymake-errline ((((class color)) (:foreground "#073642")))))
+;; (require 'flymake-node-jshint)
+;; (require 'flymake-cursor)
+; (add-hook 'js-mode-hook (lambda () (flymake-mode 1)))
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(flymake-errline ((((class color)) (:foreground "#073642")))))
 
 (add-to-list 'auto-mode-alist '("\\.styl$" . sws-mode))
 (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
@@ -116,7 +143,9 @@
     (interactive)
     (load-theme 'solarized-light t))
   
-  (theme-dark))
+  ;(theme-dark)
+  (load-theme 'deeper-blue t)
+  )
 
 (defun settings ()
   "Open .emacs file"
@@ -177,13 +206,12 @@
 ;;                            (setq-default indent-tabs-mode nil)
 ;;                            (setq tab-width 2)))
 
-(add-hook 'js-mode-hook (lambda () (interactive)
-                                  (setq-default indent-tabs-mode nil)
-                                  (setq js-indent-level 4)))
-
-(defun set-js-indent []
-  (interactive)
-  (setq js-indent-level 4))
+(setq js2-mode-hook nil)
+(add-hook 'js2-mode-hook (lambda () (interactive)
+                                  ;(setq-default indent-tabs-mode nil)
+                                  (setq indent-tabs-mode 1)
+				  (setq tab-width 4)
+                                  (setq js2-basic-offset 4)))
 
 
 ;; SUDO edit:
@@ -256,6 +284,19 @@ querying the user."
 
 (global-set-key (kbd "M-O") 'eclim-java-import-organize)
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector ["#e9e2cb" "#c60007" "#728a05" "#a57705" "#2075c7" "#c61b6e" "#259185" "#708183"])
+ '(background-color "#fcf4dc")
+ '(background-mode light)
+ '(cursor-color "#52676f")
+ '(custom-safe-themes (quote ("3b2a73c9999eff3a91d105c65ab464b02841ad28dfa487253a228cfd91bf5f3e" default)))
+ '(eclim-executable "/Applications/eclipse/eclim")
+ '(foreground-color "#52676f"))
+
 (add-hook 'eclim-mode-hook
 	  (lambda ()
 	    (fci-mode)
@@ -298,3 +339,27 @@ querying the user."
 ;(toggle-fullscreen-mac)
 ;(frame-parameters)
 
+(defun toggle-fill-paragraph ()
+  ;; Based on http://xahlee.org/emacs/modernization_fill-paragraph.html
+  "Fill or unfill the current paragraph, depending upon the current line length.
+When there is a text selection, act on the region.
+See `fill-paragraph' and `fill-region'."
+  (interactive)
+  ;; We set a property 'currently-filled-p on this command's symbol
+  ;; (i.e. on 'my-toggle-fill-paragraph), thus avoiding the need to
+  ;; create a variable for remembering the current fill state.
+  (save-excursion
+    (let* ((deactivate-mark nil)
+           (line-length (- (line-end-position) (line-beginning-position)))
+           (currently-filled (if (eq last-command this-command)
+                                 (get this-command 'currently-filled-p)
+                               (< line-length fill-column)))
+           (fill-column (if currently-filled
+                            most-positive-fixnum
+                          fill-column)))
+
+      (if (region-active-p)
+          (fill-region (region-beginning) (region-end))
+        (fill-paragraph))
+
+      (put this-command 'currently-filled-p (not currently-filled)))))
