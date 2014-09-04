@@ -64,14 +64,14 @@
 
 
 (load-file (concat MY-EMACS-FOLDER "/knut-fn.el"))
-(load-file (concat MY-EMACS-FOLDER "/2048.el"))
+; (load-file (concat MY-EMACS-FOLDER "/2048.el"))
 (add-to-list 'load-path (concat MY-EMACS-FOLDER "/auto-complete"))
 
 
 ;; Load packages:
 (add-to-list 'load-path MY-EMACS-FOLDER)
 (add-to-list 'load-path (concat MY-EMACS-FOLDER "/jade-mode"))
-(add-to-list 'load-path (concat MY-EMACS-FOLDER "/emacs-eclim"))
+;; (add-to-list 'load-path (concat MY-EMACS-FOLDER "/emacs-eclim"))
 (require 'auto-complete)
 (require 'clojure-mode)
 (require 'markdown-mode)
@@ -86,26 +86,26 @@
 (require 'jade-mode)
 (require 'less-css-mode)
 (require 'protobuf-mode)
-;(require 'go-mode)
 
-(setq gofmt-command "goimports")
-(add-to-list 'load-path "/usr/local/Cellar/go/1.2/libexec/misc/emacs")
-(require 'go-mode-load)
-(setq go-mode-hook nil)
-(add-hook 'go-mode-hook (lambda ()
-                          (setq tab-width 2)
-                          (local-set-key (kbd "M-.") 'godef-jump)
-                          (local-set-key (kbd "C-x M-j") 'gofmt)
-			  (fci-mode)))
+;;(require 'go-mode)
+;; (setq gofmt-command "goimports")
+;; (add-to-list 'load-path "/usr/local/Cellar/go/1.2/libexec/misc/emacs")
+;; (require 'go-mode-load)
+;; (setq go-mode-hook nil)
+;; (add-hook 'go-mode-hook (lambda ()
+;;                           (setq tab-width 2)
+;;                           (local-set-key (kbd "M-.") 'godef-jump)
+;;                           (local-set-key (kbd "C-x M-j") 'gofmt)
+;; 			  (fci-mode)))
 
 
-(require 'eclim)
-(global-eclim-mode)
-(require 'eclimd)
-(require 'auto-complete-config)
-(ac-config-default)
-(require 'ac-emacs-eclim-source)
-(ac-emacs-eclim-config)
+;; (require 'eclim)
+;; (global-eclim-mode)
+;; (require 'eclimd)
+;; (require 'auto-complete-config)
+;; (ac-config-default)
+;; (require 'ac-emacs-eclim-source)
+;; (ac-emacs-eclim-config)
 (require 'frame-cmds)
 
 ;; (require 'flymake-node-jshint)
@@ -282,7 +282,7 @@ querying the user."
 
 (global-set-key (kbd "C-x m") 'magit-status)
 
-(global-set-key (kbd "M-O") 'eclim-java-import-organize)
+;; (global-set-key (kbd "M-O") 'eclim-java-import-organize)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -294,15 +294,15 @@ querying the user."
  '(background-mode light)
  '(cursor-color "#52676f")
  '(custom-safe-themes (quote ("3b2a73c9999eff3a91d105c65ab464b02841ad28dfa487253a228cfd91bf5f3e" default)))
- '(eclim-executable "/Applications/eclipse/eclim")
+ ;; '(eclim-executable "/Applications/eclipse/eclim")
  '(foreground-color "#52676f"))
 
-(add-hook 'eclim-mode-hook
-	  (lambda ()
-	    (fci-mode)
-	    (setq c-basic-offset 4
-		  tab-width 4
-		  indent-tabs-mode t)))
+;; (add-hook 'eclim-mode-hook
+;; 	  (lambda ()
+;; 	    (fci-mode)
+;; 	    (setq c-basic-offset 4
+;; 		  tab-width 4
+;; 		  indent-tabs-mode t)))
 
 (add-hook
  'markdown-mode-hook
