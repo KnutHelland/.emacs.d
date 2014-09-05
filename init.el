@@ -19,55 +19,32 @@
 (ensure-package-installed
  'magit
  'guide-key
- 'exec-path-from-shell
+ ;; 'exec-path-from-shell
  'rainbow-delimiters
  'fill-column-indicator
- 'nrepl
- 'ac-nrepl
+ ;; 'nrepl
+ ;; 'ac-nrepl
  'smart-tabs-mode
  'go-mode
  'coffee-mode
  'markdown-mode
  'less-css-mode
  'protobuf-mode
- 'clojure-mode)
+ 'clojure-mode
+ ;;'emacs-eclim             ;; Java Eclipse interaction
+ 'frame-cmds)
 (package-initialize)
 
+(require 'global-setups)
 (require 'setup-guide-key)
 (require 'knut-fn)
 (require 'php-mode)
 (eval-after-load 'clojure-mode '(require 'setup-clojure))
-
-
-
-
-
-
-
-;;(require 'go-mode)
-;; (setq gofmt-command "goimports")
-;; (add-to-list 'load-path "/usr/local/Cellar/go/1.2/libexec/misc/emacs")
-;; (require 'go-mode-load)
-;; (setq go-mode-hook nil)
-;; (add-hook 'go-mode-hook (lambda ()
-;;                           (setq tab-width 2)
-;;                           (local-set-key (kbd "M-.") 'godef-jump)
-;;                           (local-set-key (kbd "C-x M-j") 'gofmt)
-;; 			  (fci-mode)))
-
-
-;; (require 'eclim)
-;; (global-eclim-mode)
-;; (require 'eclimd)
-;; (require 'auto-complete-config)
-;; (ac-config-default)
-;; (require 'ac-emacs-eclim-source)
-;; (ac-emacs-eclim-config)
-(require 'frame-cmds)
+(eval-after-load 'go-mode '(require 'setup-go))
 
 ;; (require 'flymake-node-jshint)
 ;; (require 'flymake-cursor)
-; (add-hook 'js-mode-hook (lambda () (flymake-mode 1)))
+;; (add-hook 'js-mode-hook (lambda () (flymake-mode 1)))
 ;; (custom-set-faces
 ;;  ;; custom-set-faces was added by Custom.
 ;;  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -75,18 +52,11 @@
 ;;  ;; If there is more than one, they won't work right.
 ;;  '(flymake-errline ((((class color)) (:foreground "#073642")))))
 
-(add-to-list 'auto-mode-alist '("\\.styl$" . sws-mode))
-(add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
+
+;; File extensions:
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
 
-;; Setup rainbow delimiters
-(global-rainbow-delimiters-mode)
-
-;; Setup fill column indicator
-(setq fci-rule-column 80)
 
 ;; Switch between light and dark theme:
 (when (boundp 'custom-theme-load-path)

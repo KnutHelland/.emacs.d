@@ -1,3 +1,0 @@
-[submodule "emacs-eclim"]
-	path = emacs-eclim
-	url = git://github.com/senny/emacs-eclim.git
