@@ -14,5 +14,6 @@
   ;(theme-dark)
   (load-theme 'deeper-blue t))
 
+(setq-default line-spacing 4)
 
 (provide 'appearance)

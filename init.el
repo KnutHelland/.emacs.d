@@ -7,25 +7,39 @@
   (interactive)
   (find-file (concat user-emacs-directory "/init.el")))
 
+;; Basic keybindings
+(global-set-key (kbd "C-w") 'backward-kill-word)
+(global-set-key (kbd "C-ø") 'kill-region)
+(global-set-key (kbd "C-M-7") 'undo)
+(global-set-key (kbd "M-p") (lambda () (interactive) (previous-line 5)))
+(global-set-key (kbd "M-n") (lambda () (interactive) (next-line 5)))
+
+;; User information
 (setq user-mail-address "knutoh@gmail.com")
 (setq user-full-name "Knut Helland")
 
+;; Keep emacs Custom-settings in separate file
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
+
 (add-to-list 'load-path user-emacs-directory)
+(add-to-list 'load-path (concat user-emacs-directory "site-lisp"))
 (require 'setup-package)
 (require 'initial-config)
 (require 'appearance)
 
 ;; Install our packages
-(load-file (concat user-emacs-directory "/ensure-package-installed.el"))
+(load-file (concat user-emacs-directory "ensure-package-installed.el"))
 (ensure-package-installed
  'magit
  'guide-key
- ;; 'exec-path-from-shell
+ 'exec-path-from-shell
  'rainbow-delimiters
  'fill-column-indicator
  ;; 'nrepl
  ;; 'ac-nrepl
  'smart-tabs-mode
+ 'flymake-cursor
  'go-mode
  'coffee-mode
  'markdown-mode
@@ -38,41 +52,37 @@
 (package-initialize)
 
 (require 'global-setups)
+(require 'setup-paredit)
 (require 'setup-guide-key)
 (require 'knut-fn)
 (require 'php-mode)
 (require 'setup-ido)
+(require 'setup-js)
+(require 'find-file-sudo)
 (eval-after-load 'clojure-mode '(require 'setup-clojure))
 (eval-after-load 'go-mode '(require 'setup-go))
 
-
-;; (require 'flymake-node-jshint)
-;; (require 'flymake-cursor)
-;; (add-hook 'js-mode-hook (lambda () (flymake-mode 1)))
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(flymake-errline ((((class color)) (:foreground "#073642")))))
-
-
 ;; File extensions:
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.cljs\\'" . clojure-mode))
 
 ;; Global key bindings
 (global-set-key (kbd "C-@") 'er/expand-region)
-
-
-
-
-;; File associations:
-(add-to-list 'auto-mode-alist '("\\.cljs\\'" . clojure-mode))
-
-;; Smooth scrolling:
-(setq scroll-margin 5 scroll-conservatively 10000)
-
-(setq-default line-spacing 3)
+(global-set-key (kbd "RET") 'newline-and-indent)
+(global-set-key (kbd "C-x g") 'goto-line)
+(global-set-key (kbd "C-x C-g") 'goto-line)
+(global-set-key (kbd "C-x M-7") 'comment-region)
+(global-set-key (kbd "C-x M-/") 'uncomment-region)
+(global-set-key (kbd "C-x i") (lambda () (interactive) (other-window -1)))
+(global-set-key (kbd "<C-268632080>") (lambda () (interactive) (scroll-screen-and-cursor -5)))
+(global-set-key (kbd "<C-268632078>") (lambda () (interactive) (scroll-screen-and-cursor +5)))
+(global-set-key (kbd "C-c C-d") 'duplicate-line)
+(global-set-key (kbd "<up>") 'scroll-screen-and-cursor-up)
+(global-set-key (kbd "<C-M-268632080>") (lambda () (interactive) (other-window 1)))
+(global-set-key (kbd "<down>") 'scroll-screen-and-cursor-down)
+(global-set-key (kbd "<C-M-268632078>") (lambda () (interactive) (other-window -1)))
+(global-unset-key (kbd "M-l"))
+(global-unset-key (kbd "M-u"))
 
 
 ;; Tab mode:
@@ -84,109 +94,7 @@
 ;;                            (setq-default indent-tabs-mode nil)
 ;;                            (setq tab-width 2)))
 
-;CamelCaseWord
 
-(setq js2-mode-hook nil)
-(add-hook 'js2-mode-hook (lambda () (interactive)
-                                  ;(setq-default indent-tabs-mode nil)
-			   (subword-mode 1)
-                                  (setq indent-tabs-mode 1)
-				  (setq tab-width 4)
-                                  (setq js2-basic-offset 4)))
-
-
-;; SUDO edit:
-(defun th-find-file-sudo (file)
-  "Opens FILE with root privileges."
-  (interactive "F")
-  (set-buffer (find-file (concat "/sudo::" file)))
-  (rename-buffer (concat "sudo::" (buffer-name))))
-
-(defun th-find-file-sudo-maybe ()
-  "Re-finds the current file as root if it's read-only after
-querying the user."
-  (interactive)
-  (let ((file (buffer-file-name)))
-    (and (not (file-writable-p file))
-         (y-or-n-p "File is read-only.  Open it as root? ")
-         (progn
-           (kill-buffer (current-buffer))
-           (th-find-file-sudo file)))))
-
-(add-hook 'find-file-hook 'th-find-file-sudo-maybe)
-
-
-;; Paredit
-(autoload 'enable-paredit-mode "paredit" "" t)
-(add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
-(add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-(add-hook 'ielm-mode-hook #'enable-paredit-mode)
-(add-hook 'lisp-mode-hook #'enable-paredit-mode)
-(add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-(add-hook 'clojure-mode-hook #'enable-paredit-mode)
-
-;; Custom key bindings
-;(global-set-key (kbd "C-c C-d") 'duplicate-line)duplicate-line
-(global-set-key (kbd "M-p") (lambda () (interactive) (previous-line 1)(previous-line 1)(previous-line 1)(previous-line 1)(previous-line 1)))
-(global-set-key (kbd "M-n") (lambda () (interactive) (next-line 1)(next-line 1)(next-line 1)(next-line 1)(next-line 1)))
-(global-set-key (kbd "C-M-7") 'undo)
-(global-set-key (kbd "<C-268632080>") (lambda () (interactive) (scroll-screen-and-cursor -5)))
-(global-set-key (kbd "<C-268632078>") (lambda () (interactive) (scroll-screen-and-cursor +5)))
-
-(global-set-key (kbd "C-x g") 'goto-line)
-(global-set-key (kbd "C-x C-g") 'goto-line)
-
-;; Scrolling with arrows:
-(global-set-key (kbd "<up>") 'scroll-screen-and-cursor-up)
-; (global-set-key (kbd "C-M-p") 'scroll-screen-and-cursor-up)
-(global-set-key (kbd "<C-M-268632080>") (lambda () (interactive) (other-window 1)))
-(global-set-key (kbd "<down>") 'scroll-screen-and-cursor-down)
-; (global-set-key (kbd "C-M-n") 'scroll-screen-and-cursor-down)
-(global-set-key (kbd "<C-M-268632078>") (lambda () (interactive) (other-window -1)))
-
-;(global-set-key (kbd "H-p") (lambda () (interactive) (scroll-down-line 3)))
-;(global-set-key (kbd "H-n") (lambda () (interactive) (scroll-up-line 3)))
-;; (global-set-key (kbd "H-f") 'next-buffer)
-;; (global-set-key (kbd "H-b") 'previous-buffer)
-;; (global-set-key (kbd "H-p") (lambda () (interactive) (other-window 1)))
-;; (global-set-key (kbd "H-n") (lambda () (interactive) (other-window -1)))
-
-(global-set-key (kbd "RET") 'newline-and-indent)
-(global-set-key (kbd "C-w") 'backward-kill-word)
-(global-set-key (kbd "C-ø") 'kill-region)
-
-(global-set-key (kbd "C-x M-7") 'comment-region)
-(global-set-key (kbd "C-x M-/") 'uncomment-region)
-
-;; Go to other window backward:
-(global-set-key (kbd "C-x i") (lambda () (interactive) (other-window -1)))
-
-(global-unset-key (kbd "M-l"))
-(global-unset-key (kbd "M-u"))
-
-
-
-;; (global-set-key (kbd "M-O") 'eclim-java-import-organize)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector ["#e9e2cb" "#c60007" "#728a05" "#a57705" "#2075c7" "#c61b6e" "#259185" "#708183"])
- '(background-color "#fcf4dc")
- '(background-mode light)
- '(cursor-color "#52676f")
- '(custom-safe-themes (quote ("3b2a73c9999eff3a91d105c65ab464b02841ad28dfa487253a228cfd91bf5f3e" default)))
- ;; '(eclim-executable "/Applications/eclipse/eclim")
- '(foreground-color "#52676f"))
-
-;; (add-hook 'eclim-mode-hook
-;; 	  (lambda ()
-;; 	    (fci-mode)
-;; 	    (setq c-basic-offset 4
-;; 		  tab-width 4
-;; 		  indent-tabs-mode t)))
 
 (add-hook
  'markdown-mode-hook
