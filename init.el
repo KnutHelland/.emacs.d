@@ -41,6 +41,7 @@
 (require 'setup-guide-key)
 (require 'knut-fn)
 (require 'php-mode)
+(require 'setup-ido)
 (eval-after-load 'clojure-mode '(require 'setup-clojure))
 (eval-after-load 'go-mode '(require 'setup-go))
 
@@ -64,23 +65,6 @@
 
 
 
-
-;; Setup nrepl auto complete:
-;; (add-hook 'nrepl-mode-hook 'auto-complete-mode)
-;; (add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
-;; (add-hook 'nrepl-mode-hook 'paredit-mode)
-;; (add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
-;; (eval-after-load "auto-complete"
-;; 		 '(add-to-list 'ac-modes 'nrepl-mode))
-
-;; enable IDO mode:
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
-(add-hook 'ido-setup-hook (lambda ()
-			    (define-key ido-completion-map (kbd "C-w") 'backward-kill-word)))
-		;(define-key ido-completion-map (kbd "C-M-n") 'ido-next-work-directory)
-	        ;(define-key ido-completion-map (kbd "C-M-p") 'ido-prev-work-directory)))
 
 ;; File associations:
 (add-to-list 'auto-mode-alist '("\\.cljs\\'" . clojure-mode))
