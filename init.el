@@ -33,7 +33,8 @@
  'protobuf-mode
  'clojure-mode
  ;;'emacs-eclim             ;; Java Eclipse interaction
- 'frame-cmds)
+ 'frame-cmds
+ 'expand-region)
 (package-initialize)
 
 (require 'global-setups)
@@ -42,6 +43,7 @@
 (require 'php-mode)
 (eval-after-load 'clojure-mode '(require 'setup-clojure))
 (eval-after-load 'go-mode '(require 'setup-go))
+
 
 ;; (require 'flymake-node-jshint)
 ;; (require 'flymake-cursor)
@@ -57,15 +59,10 @@
 ;; File extensions:
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
-
-;; Expand-region.el
-(add-to-list 'load-path (concat user-emacs-directory "/expand-region"))
-(require 'expand-region)
+;; Global key bindings
 (global-set-key (kbd "C-@") 'er/expand-region)
 
-;; 
-(add-to-list 'load-path (concat user-emacs-directory "/magit-1.2.0"))
-(require 'magit)
+
 
 
 ;; Setup nrepl auto complete:
