@@ -13,6 +13,7 @@
 (global-set-key (kbd "C-M-7") 'undo)
 (global-set-key (kbd "M-p") (lambda () (interactive) (previous-line 5)))
 (global-set-key (kbd "M-n") (lambda () (interactive) (next-line 5)))
+(global-set-key (kbd "C-.") 'complete-symbol)
 
 ;; User information
 (setq user-mail-address "knutoh@gmail.com")
@@ -34,7 +35,7 @@
  'magit
  'guide-key
  'exec-path-from-shell
- 'rainbow-delimiters
+ ;; 'rainbow-delimiters
  'fill-column-indicator
  ;; 'nrepl
  ;; 'ac-nrepl
@@ -43,6 +44,7 @@
  'go-mode
  'coffee-mode
  'markdown-mode
+ 'flymake-php
  'less-css-mode
  'protobuf-mode
  'clojure-mode
@@ -56,11 +58,14 @@
 (require 'setup-guide-key)
 (require 'knut-fn)
 (require 'php-mode)
+(require 'setup-php)
 (require 'setup-ido)
 (require 'setup-js)
 (require 'find-file-sudo)
 (eval-after-load 'clojure-mode '(require 'setup-clojure))
 (eval-after-load 'go-mode '(require 'setup-go))
+(eval-after-load 'markdown-mode '(require 'setup-markdown))
+
 
 ;; File extensions:
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
@@ -84,13 +89,6 @@
 (global-unset-key (kbd "M-l"))
 (global-unset-key (kbd "M-u"))
 
-;;(setq whitespace-style (quote (spaces tabs newline space-mark tab-mark newline-mark)))
-;; (setq whitespace-display-mappings
-;;        ;; all numbers are Unicode codepoint in decimal. try (insert-char 182 ) to see it
-;;       '((space-mark 32 [183] [46]) ; 32 SPACE, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
-;;         (newline-mark 10 [10]) ; 10 LINE FEED
-;;         (tab-mark 9 [8594 9] [92 9]) ; 9 TAB, 9655 WHITE RIGHT-POINTING TRIANGLE 「▷」
-;;         ))
 
 ;; Tab mode:
 (add-hook 'coffee-mode-hook (lambda () (interactive)
@@ -101,12 +99,6 @@
 ;;                            (setq-default indent-tabs-mode nil)
 ;;                            (setq tab-width 2)))
 
-(add-hook
- 'markdown-mode-hook
- (lambda ()
-   (define-key markdown-mode-map (kbd "M-p")  (lambda () (interactive) (previous-line 5)))
-   (define-key markdown-mode-map (kbd "M-n")  (lambda () (interactive) (next-line 5)))))
-
 
 (defun clj-doc (query)
   "Show nrepl-doc and go back to current window."
@@ -114,7 +106,7 @@
   (nrepl-doc query)
   (other-window 1))
 
-(add-hook 'clojure-mode-hook (lambda () 
+(add-hook 'clojure-mode-hook (lambda ()
 			     (define-key clojure-mode-map (kbd "C-c C-d") 'clj-doc)))
 
 (defun toggle-fullscreen-mac ()
@@ -123,9 +115,6 @@
   (set-frame-parameter
      nil 'fullscreen
      (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
-
-;(toggle-fullscreen-mac)
-;(frame-parameters)
 
 (defun toggle-fill-paragraph ()
   ;; Based on http://xahlee.org/emacs/modernization_fill-paragraph.html
