@@ -2,6 +2,11 @@
 ;; .emacs for Knut Helland
 ;;----------------------------------------------------------------------
 
+(defun settings ()
+  "Open .emacs file"
+  (interactive)
+  (find-file (concat user-emacs-directory "/init.el")))
+
 (setq user-mail-address "knutoh@gmail.com")
 (setq user-full-name "Knut Helland")
 
@@ -138,10 +143,6 @@
   (load-theme 'deeper-blue t)
   )
 
-(defun settings ()
-  "Open .emacs file"
-  (interactive)
-  (find-file (concat user-emacs-directory "/init.el")))
 
 
 ;; Expand-region.el
