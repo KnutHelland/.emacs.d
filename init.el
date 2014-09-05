@@ -34,31 +34,15 @@
 (package-initialize)
 
 (require 'setup-guide-key)
-
-;(eval-after-load 'guide-key '(require 'setup-guide-key))
-
-
-
-
-
-;; Load packages:
-
-(add-to-list 'load-path (concat user-emacs-directory "/jade-mode"))
-;; (add-to-list 'load-path (concat user-emacs-directory "/emacs-eclim"))
 (require 'knut-fn)
-(require 'clojure-mode)
-(require 'markdown-mode)
 (require 'php-mode)
-(require 'nrepl)
-(require 'ac-nrepl)
-(require 'rainbow-delimiters)
-(require 'coffee-mode)
-(require 'exec-path-from-shell)
-(require 'fill-column-indicator)
-(require 'sws-mode)
-(require 'jade-mode)
-(require 'less-css-mode)
-(require 'protobuf-mode)
+(eval-after-load 'clojure-mode '(require 'setup-clojure))
+
+
+
+
+
+
 
 ;;(require 'go-mode)
 ;; (setq gofmt-command "goimports")
@@ -157,14 +141,6 @@
 
 (setq-default line-spacing 3)
 
-;; Clojure mode
-(add-hook 'clojure-mode-hook 'nrepl-interaction-mode)
-(add-hook 'clojure-mode-hook 'fci-mode)
-(add-hook 'clojure-mode-hook 'auto-complete-mode)
-(define-key clojure-mode-map (kbd "RET") 'newline-and-indent)
-(add-hook 'clojure-mode-hook (lambda () (interactive)
-			       (set-fill-column 80)
-			       (define-key clojure-mode-map (kbd "C-x C-r") 'nrepl-eval-buffer)))
 
 ;; Tab mode:
 (add-hook 'coffee-mode-hook (lambda () (interactive)
