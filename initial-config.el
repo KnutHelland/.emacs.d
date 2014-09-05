@@ -30,7 +30,7 @@
 (show-paren-mode 1)
 
 ;; ;; Navigate inside CamelCase words
-;; (global-subword-mode 1)
+;; This does not work good when finding files and/or scrolling.
 ;; (global-subword-mode 1)
 
 ;; Always display line and column numbers
@@ -57,5 +57,13 @@
 	mac-command-modifier 'meta
         mac-function-modifier 'ctrl)
   (set-face-attribute 'default nil :height 100))
+
+;; Write backup files to own directory
+(setq backup-directory-alist
+      `(("." . ,(expand-file-name
+                 (concat user-emacs-directory "backups")))))
+
+;; Make backups of files, even when they're in version control
+(setq vc-make-backup-files t)
 
 (provide 'initial-config)

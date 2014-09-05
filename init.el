@@ -33,25 +33,17 @@
  'clojure-mode)
 (package-initialize)
 
+(require 'setup-guide-key)
 
-;; Require guide-key
-
-
-(setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x v" "C-x 8" "C-x +" "C-x" "C-x a"))
-(guide-key-mode 1)
-(setq guide-key/recursive-key-sequence-flag t)
-(setq guide-key/popup-window-position 'bottom)
-(setq guide-key/idle-delay 0.5)
+;(eval-after-load 'guide-key '(require 'setup-guide-key))
 
 
 
 
 
 
-;; Don't want my emacs to create a lot of files: (I know the risk)
-(auto-save-mode nil)
-(setq make-backup-files nil)
-(global-auto-revert-mode 1)
+
+
 
 
 (require 'uniquify)
