@@ -14,37 +14,37 @@
 (require 'setup-package)
 (require 'initial-config)
 
+;; Install our packages
+(load-file (concat user-emacs-directory "/ensure-package-installed.el"))
+(ensure-package-installed
+ 'magit
+ 'guide-key
+ 'exec-path-from-shell
+ 'rainbow-delimiters
+ 'fill-column-indicator
+ 'nrepl
+ 'ac-nrepl
+ 'smart-tabs-mode
+ 'go-mode
+ 'coffee-mode
+ 'markdown-mode
+ 'less-css-mode
+ 'protobuf-mode
+ 'clojure-mode)
+(package-initialize)
 
 
-;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x v" "C-x 8" "C-x +"))
-;; (guide-key-mode 1)
-;; (setq guide-key/recursive-key-sequence-flag t)
-;; (setq guide-key/popup-window-position 'bottom)
-;; (setq guide-key/idle-delay 0.0)
+;; Require guide-key
+
+
+(setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x v" "C-x 8" "C-x +" "C-x" "C-x a"))
+(guide-key-mode 1)
+(setq guide-key/recursive-key-sequence-flag t)
+(setq guide-key/popup-window-position 'bottom)
+(setq guide-key/idle-delay 0.5)
 
 
 
-
-;; (defvar prelude-packages
-;;   '(magit go-mode)
-;;   "A list of packages to ensure are installed at launch.")
-
-;; (defun prelude-packages-installed-p ()
-;;   (loop for p in prelude-packages
-;;         when (not (package-installed-p p)) do (return nil)
-;;         finally (return t)))
-
-;; (unless (prelude-packages-installed-p)
-;;   ;; check for new packages (package versions)
-;;   (message "%s" "Emacs Prelude is now refreshing its package database...")
-;;   (package-refresh-contents)
-;;   (message "%s" " done.")
-;;   ;; install the missing packages
-;;   (dolist (p prelude-packages)
-;;     (when (not (package-installed-p p))
-;;       (package-install p))))
-
-;; (package-installed-p "go-mode")
 
 
 
@@ -267,7 +267,7 @@ querying the user."
 
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "C-w") 'backward-kill-word)
-(global-set-key (kbd "C-ø") 'kill-region)
+(global-set-key (kbd "C-Ã¸") 'kill-region)
 
 (global-set-key (kbd "C-x M-7") 'comment-region)
 (global-set-key (kbd "C-x M-/") 'uncomment-region)
