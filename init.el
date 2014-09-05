@@ -41,26 +41,11 @@
 
 
 
-
-
-
-
-
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward)
-
-
-; (load-file (concat user-emacs-directory "/knut-fn.el"))
-; (load-file (concat user-emacs-directory "/2048.el"))
-(add-to-list 'load-path (concat user-emacs-directory "/auto-complete"))
-
-
 ;; Load packages:
 
 (add-to-list 'load-path (concat user-emacs-directory "/jade-mode"))
 ;; (add-to-list 'load-path (concat user-emacs-directory "/emacs-eclim"))
 (require 'knut-fn)
-(require 'auto-complete)
 (require 'clojure-mode)
 (require 'markdown-mode)
 (require 'php-mode)

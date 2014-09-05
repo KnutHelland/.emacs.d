@@ -66,4 +66,8 @@
 ;; Make backups of files, even when they're in version control
 (setq vc-make-backup-files t)
 
+;; Understandable buffer names
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward)
+
 (provide 'initial-config)
