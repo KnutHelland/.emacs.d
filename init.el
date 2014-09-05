@@ -84,6 +84,13 @@
 (global-unset-key (kbd "M-l"))
 (global-unset-key (kbd "M-u"))
 
+;;(setq whitespace-style (quote (spaces tabs newline space-mark tab-mark newline-mark)))
+;; (setq whitespace-display-mappings
+;;        ;; all numbers are Unicode codepoint in decimal. try (insert-char 182 ) to see it
+;;       '((space-mark 32 [183] [46]) ; 32 SPACE, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
+;;         (newline-mark 10 [10]) ; 10 LINE FEED
+;;         (tab-mark 9 [8594 9] [92 9]) ; 9 TAB, 9655 WHITE RIGHT-POINTING TRIANGLE 「▷」
+;;         ))
 
 ;; Tab mode:
 (add-hook 'coffee-mode-hook (lambda () (interactive)
@@ -94,22 +101,11 @@
 ;;                            (setq-default indent-tabs-mode nil)
 ;;                            (setq tab-width 2)))
 
-
-
 (add-hook
  'markdown-mode-hook
  (lambda ()
    (define-key markdown-mode-map (kbd "M-p")  (lambda () (interactive) (previous-line 5)))
    (define-key markdown-mode-map (kbd "M-n")  (lambda () (interactive) (next-line 5)))))
-;; (global-set-key (
-;;                  [?\M-f ?\M-b ?\C-  ?\C-  ?\M-b ?\M-c nil]))
-
-
-;; Emacs jabber
-;(add-to-list 'load-path (concat user-emacs-directory "/emacs-jabber"))
-;(require 'jabber)
-;(require 'jabber-autoloads)
-
 
 
 (defun clj-doc (query)
