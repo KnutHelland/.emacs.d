@@ -2,56 +2,46 @@
 ;; .emacs for Knut Helland
 ;;----------------------------------------------------------------------
 
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
-
-(setenv "GOPATH" "/Users/knut/uis/gopath")
-(setenv "PATH"
-  (concat
-   "/Users/knut/uis/gopath/bin" path-separator
-   (getenv "PATH")
-  )
-)
-;; Path to my Emacs folder This is the folder where I put extra modes
-;; and stuff that I like. And in Dropbox so I can have the same file
-;; on all computers ;)
-;(setq MY-EMACS-FOLDER (if (or (eq system-type 'gnu/linux)
-;			      (eq system-type 'linux))
-;			  "/home/knut/Dropbox/resources/emacs"
-;			"x:/Dropbox/resources/emacs"))
-
-(setq visible-bell t)
-
-(setq MY-EMACS-FOLDER (file-name-directory (or load-file-name buffer-file-name)))
-
-
-;; Mac specifics:
-(when (eq system-type 'darwin)
-  (setq mac-option-modifier nil
-	mac-command-modifier 'meta
-;	mac-function-modifier 'hyper
-        mac-function-modifier 'ctrl
-	x-select-enable-clipboard t)
-  (text-scale-adjust 1))
-
-;; Not on mac:
-(when (not (eq system-type 'darwin))
-  (set-face-attribute 'default nil :height 100))
-
-
-
 (setq user-mail-address "knutoh@gmail.com")
 (setq user-full-name "Knut Helland")
 
+(add-to-list 'load-path user-emacs-directory)
+(require 'setup-package)
+(require 'initial-config)
 
-;; Turn off menubar and toolbar and disable splash screen.
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(transient-mark-mode -1)
-(setq inhibit-startup-message t)
-(setq inhibit-splash-screen t)
+
+
+;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x v" "C-x 8" "C-x +"))
+;; (guide-key-mode 1)
+;; (setq guide-key/recursive-key-sequence-flag t)
+;; (setq guide-key/popup-window-position 'bottom)
+;; (setq guide-key/idle-delay 0.0)
+
+
+
+
+;; (defvar prelude-packages
+;;   '(magit go-mode)
+;;   "A list of packages to ensure are installed at launch.")
+
+;; (defun prelude-packages-installed-p ()
+;;   (loop for p in prelude-packages
+;;         when (not (package-installed-p p)) do (return nil)
+;;         finally (return t)))
+
+;; (unless (prelude-packages-installed-p)
+;;   ;; check for new packages (package versions)
+;;   (message "%s" "Emacs Prelude is now refreshing its package database...")
+;;   (package-refresh-contents)
+;;   (message "%s" " done.")
+;;   ;; install the missing packages
+;;   (dolist (p prelude-packages)
+;;     (when (not (package-installed-p p))
+;;       (package-install p))))
+
+;; (package-installed-p "go-mode")
+
+
 
 ;; Don't want my emacs to create a lot of files: (I know the risk)
 (auto-save-mode nil)
@@ -63,15 +53,16 @@
 (setq uniquify-buffer-name-style 'post-forward)
 
 
-(load-file (concat MY-EMACS-FOLDER "/knut-fn.el"))
-; (load-file (concat MY-EMACS-FOLDER "/2048.el"))
-(add-to-list 'load-path (concat MY-EMACS-FOLDER "/auto-complete"))
+; (load-file (concat user-emacs-directory "/knut-fn.el"))
+; (load-file (concat user-emacs-directory "/2048.el"))
+(add-to-list 'load-path (concat user-emacs-directory "/auto-complete"))
 
 
 ;; Load packages:
-(add-to-list 'load-path MY-EMACS-FOLDER)
-(add-to-list 'load-path (concat MY-EMACS-FOLDER "/jade-mode"))
-;; (add-to-list 'load-path (concat MY-EMACS-FOLDER "/emacs-eclim"))
+
+(add-to-list 'load-path (concat user-emacs-directory "/jade-mode"))
+;; (add-to-list 'load-path (concat user-emacs-directory "/emacs-eclim"))
+(require 'knut-fn)
 (require 'auto-complete)
 (require 'clojure-mode)
 (require 'markdown-mode)
@@ -133,7 +124,7 @@
 
 ;; Switch between light and dark theme:
 (when (boundp 'custom-theme-load-path)
-  (add-to-list 'custom-theme-load-path (concat MY-EMACS-FOLDER "/emacs-color-theme-solarized"))
+  (add-to-list 'custom-theme-load-path (concat user-emacs-directory "/emacs-color-theme-solarized"))
   (defun theme-dark ()
     "Use solarized dark theme."
     (interactive)
@@ -150,16 +141,16 @@
 (defun settings ()
   "Open .emacs file"
   (interactive)
-  (find-file (concat MY-EMACS-FOLDER "/init.el")))
+  (find-file (concat user-emacs-directory "/init.el")))
 
 
 ;; Expand-region.el
-(add-to-list 'load-path (concat MY-EMACS-FOLDER "/expand-region"))
+(add-to-list 'load-path (concat user-emacs-directory "/expand-region"))
 (require 'expand-region)
 (global-set-key (kbd "C-@") 'er/expand-region)
 
 ;; 
-(add-to-list 'load-path (concat MY-EMACS-FOLDER "/magit-1.2.0"))
+(add-to-list 'load-path (concat user-emacs-directory "/magit-1.2.0"))
 (require 'magit)
 
 
@@ -206,9 +197,12 @@
 ;;                            (setq-default indent-tabs-mode nil)
 ;;                            (setq tab-width 2)))
 
+;CamelCaseWord
+
 (setq js2-mode-hook nil)
 (add-hook 'js2-mode-hook (lambda () (interactive)
                                   ;(setq-default indent-tabs-mode nil)
+			   (subword-mode 1)
                                   (setq indent-tabs-mode 1)
 				  (setq tab-width 4)
                                   (setq js2-basic-offset 4)))
@@ -245,9 +239,9 @@ querying the user."
 (add-hook 'clojure-mode-hook #'enable-paredit-mode)
 
 ;; Custom key bindings
-;(global-set-key (kbd "C-c C-d") 'duplicate-line)
-(global-set-key (kbd "M-p") (lambda () (interactive) (previous-line 5)))
-(global-set-key (kbd "M-n") (lambda () (interactive) (next-line 5)))
+;(global-set-key (kbd "C-c C-d") 'duplicate-line)duplicate-line
+(global-set-key (kbd "M-p") (lambda () (interactive) (previous-line 1)(previous-line 1)(previous-line 1)(previous-line 1)(previous-line 1)))
+(global-set-key (kbd "M-n") (lambda () (interactive) (next-line 1)(next-line 1)(next-line 1)(next-line 1)(next-line 1)))
 (global-set-key (kbd "C-M-7") 'undo)
 (global-set-key (kbd "<C-268632080>") (lambda () (interactive) (scroll-screen-and-cursor -5)))
 (global-set-key (kbd "<C-268632078>") (lambda () (interactive) (scroll-screen-and-cursor +5)))
@@ -265,10 +259,10 @@ querying the user."
 
 ;(global-set-key (kbd "H-p") (lambda () (interactive) (scroll-down-line 3)))
 ;(global-set-key (kbd "H-n") (lambda () (interactive) (scroll-up-line 3)))
-(global-set-key (kbd "H-f") 'next-buffer)
-(global-set-key (kbd "H-b") 'previous-buffer)
-(global-set-key (kbd "H-p") (lambda () (interactive) (other-window 1)))
-(global-set-key (kbd "H-n") (lambda () (interactive) (other-window -1)))
+;; (global-set-key (kbd "H-f") 'next-buffer)
+;; (global-set-key (kbd "H-b") 'previous-buffer)
+;; (global-set-key (kbd "H-p") (lambda () (interactive) (other-window 1)))
+;; (global-set-key (kbd "H-n") (lambda () (interactive) (other-window -1)))
 
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "C-w") 'backward-kill-word)
@@ -277,10 +271,13 @@ querying the user."
 (global-set-key (kbd "C-x M-7") 'comment-region)
 (global-set-key (kbd "C-x M-/") 'uncomment-region)
 
+;; Go to other window backward:
+(global-set-key (kbd "C-x i") (lambda () (interactive) (other-window -1)))
+
 (global-unset-key (kbd "M-l"))
 (global-unset-key (kbd "M-u"))
 
-(global-set-key (kbd "C-x m") 'magit-status)
+
 
 ;; (global-set-key (kbd "M-O") 'eclim-java-import-organize)
 
@@ -314,7 +311,7 @@ querying the user."
 
 
 ;; Emacs jabber
-;(add-to-list 'load-path (concat MY-EMACS-FOLDER "/emacs-jabber"))
+;(add-to-list 'load-path (concat user-emacs-directory "/emacs-jabber"))
 ;(require 'jabber)
 ;(require 'jabber-autoloads)
 

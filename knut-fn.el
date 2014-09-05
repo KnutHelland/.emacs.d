@@ -26,3 +26,6 @@
   "Scrolls one line down and moves the cursor one line up."
   (interactive)
   (scroll-screen-and-cursor 1))
+
+
+(provide 'knut-fn)
