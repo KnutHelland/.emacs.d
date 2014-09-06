@@ -9,7 +9,8 @@
  '(cursor-color "#52676f")
  '(custom-safe-themes (quote ("3b2a73c9999eff3a91d105c65ab464b02841ad28dfa487253a228cfd91bf5f3e" default)))
  '(foreground-color "#52676f")
- '(yas-prompt-functions (quote (yas-no-prompt))))
+ ;;'(yas-prompt-functions (quote (yas-no-prompt)))
+ )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

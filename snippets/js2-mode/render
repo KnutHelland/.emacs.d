@@ -1,0 +1,7 @@
+# name: render
+# key: render
+# --
+render: function() {
+	$0
+	return this;
+}

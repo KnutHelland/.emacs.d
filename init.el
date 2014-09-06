@@ -49,6 +49,7 @@
  'flymake-php
  'less-css-mode
  'js2-mode
+ 'js2-refactor
  'protobuf-mode
  'clojure-mode
  ;;'emacs-eclim             ;; Java Eclipse interaction
@@ -59,19 +60,18 @@
 (require 'global-setups)
 (require 'setup-paredit)
 (require 'setup-guide-key)
+(require 'setup-yasnippet)
 (require 'knut-fn)
 (require 'php-mode)
 (require 'find-file-in-project)
 (require 'setup-ffip)
 (require 'setup-php)
 (require 'setup-ido)
-(require 'setup-js)
 (require 'find-file-sudo)
 (eval-after-load 'clojure-mode '(require 'setup-clojure))
 (eval-after-load 'go-mode '(require 'setup-go))
 (eval-after-load 'markdown-mode '(require 'setup-markdown))
-
-(yas-global-mode)
+(eval-after-load 'js2-mode '(require 'setup-js))
 
 ;; File extensions:
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))

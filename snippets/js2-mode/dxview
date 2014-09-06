@@ -1,0 +1,24 @@
+# key: dxview
+# name: dxview
+# expand-env: ((yas-indent-line (quote fixed)))
+# --
+define(['underscore',
+        'jquery',
+        'backbone',
+        'dx'],
+	function(_,
+	         $,
+	         Backbone,
+	         dx) {
+
+	return Backbone.View.extend({
+
+		initialize: function() {
+			$0
+		},
+
+		render: function() {
+			return this;
+		}
+	});
+});

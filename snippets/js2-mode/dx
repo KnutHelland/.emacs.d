@@ -1,0 +1,21 @@
+# name: dx js file
+# key: dx
+# expand-env: ((yas-indent-line (quote fixed)))
+# --
+define(['underscore',
+        'jquery',
+        'backbone',
+        'dx'],
+	function(_,
+	         $,
+	         Backbone,
+	         dx) {
+
+	return ${1:Backbone.}.extend({
+
+		initialize: function() {
+			$0
+		}
+
+	});
+});
