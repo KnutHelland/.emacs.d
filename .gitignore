@@ -10,3 +10,4 @@ elpa
 eshell
 .yas-compiled-snippets
 TAGS
+*.elc
