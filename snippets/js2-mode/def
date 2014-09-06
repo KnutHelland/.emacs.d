@@ -4,10 +4,10 @@
 # --
 define(['underscore',
         'jquery',
-        'backbone'
-	], function(_,
-	            $,
-	            Backbone) {
+        'backbone'],
+	function(_,
+	         $,
+	         Backbone) {
 
 	$0
 

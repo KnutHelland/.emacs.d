@@ -7,5 +7,5 @@ session*
 tramp
 elpa
 .places
-
 eshell
+.yas-compiled-snippets

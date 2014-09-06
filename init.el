@@ -71,6 +71,7 @@
 (eval-after-load 'go-mode '(require 'setup-go))
 (eval-after-load 'markdown-mode '(require 'setup-markdown))
 
+(yas-global-mode)
 
 ;; File extensions:
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
