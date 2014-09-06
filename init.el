@@ -42,6 +42,7 @@
  ;; 'ac-nrepl
  'smart-tabs-mode
  'flymake-cursor
+ 'yasnippet
  'go-mode
  'coffee-mode
  'markdown-mode
@@ -60,6 +61,8 @@
 (require 'setup-guide-key)
 (require 'knut-fn)
 (require 'php-mode)
+(require 'find-file-in-project)
+(require 'setup-ffip)
 (require 'setup-php)
 (require 'setup-ido)
 (require 'setup-js)
@@ -85,6 +88,8 @@
 (global-set-key (kbd "<C-268632080>") (lambda () (interactive) (scroll-screen-and-cursor -5)))
 (global-set-key (kbd "<C-268632078>") (lambda () (interactive) (scroll-screen-and-cursor +5)))
 (global-set-key (kbd "C-c C-d") 'duplicate-line)
+(global-set-key (kbd "C-<tab>") 'yas-expand)
+(global-set-key (kbd "C-x f") 'find-file-in-project)
 (global-set-key (kbd "<up>") 'scroll-screen-and-cursor-up)
 (global-set-key (kbd "<C-M-268632080>") (lambda () (interactive) (other-window 1)))
 (global-set-key (kbd "<down>") 'scroll-screen-and-cursor-down)

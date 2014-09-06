@@ -1,0 +1,14 @@
+# key: def
+# name: def
+# expand-env: ((yas-indent-line 'fixed))
+# --
+define(['underscore',
+        'jquery',
+        'backbone'
+	], function(_,
+	            $,
+	            Backbone) {
+
+	$0
+
+});
