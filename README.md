@@ -1,12 +1,7 @@
 .emacs.d
 ========
 
-My personal emacs configuration
+My personal emacs configuration. Much inspiration got from
+[https://github.com/magnars/.emacs.d](https://github.com/magnars/.emacs.d).
 
 
-Cloning
--------
-You'll need to include submodules when cloning this project:
-```shell
-git clone --recursive git@github.com:KnutHelland/.emacs.d.git
-```
