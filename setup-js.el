@@ -5,11 +5,10 @@
 
 (setq js2-mode-hook nil)
 (add-hook 'js2-mode-hook (lambda () (interactive)
-			   ;; (setq-default indent-tabs-mode nil)
 			   (subword-mode 1)
-			   (setq indent-tabs-mode 1)
-			   (setq tab-width 4)
-			   (setq js2-basic-offset 4)))
+			   (setq indent-tabs-mode t
+				 tab-width 8)
+			   (smart-tabs-mode)))
 
 
 

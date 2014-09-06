@@ -2,10 +2,11 @@
 ;; .emacs for Knut Helland
 ;;----------------------------------------------------------------------
 
-(defun settings ()
-  "Open .emacs file"
-  (interactive)
+(defun settings () "Open .emacs file" (interactive)
   (find-file (concat user-emacs-directory "/init.el")))
+
+(defun appearance () "Open appearance file" (interactive)
+  (find-file (concat user-emacs-directory "/appearance.el")))
 
 ;; Basic keybindings
 (global-set-key (kbd "C-w") 'backward-kill-word)
@@ -13,7 +14,7 @@
 (global-set-key (kbd "C-M-7") 'undo)
 (global-set-key (kbd "M-p") (lambda () (interactive) (previous-line 5)))
 (global-set-key (kbd "M-n") (lambda () (interactive) (next-line 5)))
-(global-set-key (kbd "C-.") 'complete-symbol)
+(global-set-key (kbd "C-.") 'completion-at-point)
 
 ;; User information
 (setq user-mail-address "knutoh@gmail.com")
@@ -46,6 +47,7 @@
  'markdown-mode
  'flymake-php
  'less-css-mode
+ 'js2-mode
  'protobuf-mode
  'clojure-mode
  ;;'emacs-eclim             ;; Java Eclipse interaction
@@ -70,6 +72,7 @@
 ;; File extensions:
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.cljs\\'" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
 ;; Global key bindings
 (global-set-key (kbd "C-@") 'er/expand-region)
@@ -88,6 +91,14 @@
 (global-set-key (kbd "<C-M-268632078>") (lambda () (interactive) (other-window -1)))
 (global-unset-key (kbd "M-l"))
 (global-unset-key (kbd "M-u"))
+
+
+(setq tab-width 4)
+(defvaralias 'cperl-indent-level 'tab-width)
+(defvaralias 'js-indent-level 'tab-width)
+;(defvaralias 'js2-basic-offset 'tab-width)
+
+(smart-tabs-advice js2-indent-line js2-basic-offset)
 
 
 ;; Tab mode:
