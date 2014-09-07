@@ -7,7 +7,7 @@
 
 (define-key js2-mode-map (kbd "C-k") 'js2r-kill)
 
-(setq js2-mode-hook nil)
+(add-hook 'js2-mode-hook 'whitespace-mode)
 (add-hook 'js2-mode-hook (lambda () (interactive)
 			   (subword-mode 1)
 			   (setq indent-tabs-mode t

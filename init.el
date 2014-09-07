@@ -47,6 +47,7 @@
  'coffee-mode
  'markdown-mode
  'flymake-php
+ 'php-auto-yasnippets
  'less-css-mode
  'js2-mode
  'js2-refactor
@@ -54,6 +55,11 @@
  'clojure-mode
  ;;'emacs-eclim             ;; Java Eclipse interaction
  'frame-cmds
+ ;; 'fiplr
+ 'flx-ido
+ 'ido-vertical-mode
+ 'multiple-cursors
+ 'projectile
  'expand-region)
 (package-initialize)
 
@@ -63,8 +69,8 @@
 (require 'setup-yasnippet)
 (require 'knut-fn)
 (require 'php-mode)
-(require 'find-file-in-project)
-(require 'setup-ffip)
+;; (require 'find-file-in-project)
+;; (require 'setup-ffip)
 (require 'setup-php)
 (require 'setup-ido)
 (require 'find-file-sudo)
@@ -72,6 +78,15 @@
 (eval-after-load 'go-mode '(require 'setup-go))
 (eval-after-load 'markdown-mode '(require 'setup-markdown))
 (eval-after-load 'js2-mode '(require 'setup-js))
+
+(projectile-global-mode)
+(setq projectile-completion-system 'ido)
+(setq projectile-indexing-method 'alien)
+(setq projectile-enable-caching t)
+(setq projectile-file-exists-remote-cache-expire (* 10 60))
+
+(setq org-hide-leading-stars t)
+(setq org-startup-indented t)
 
 ;; File extensions:
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
@@ -89,11 +104,15 @@
 (global-set-key (kbd "<C-268632080>") (lambda () (interactive) (scroll-screen-and-cursor -5)))
 (global-set-key (kbd "<C-268632078>") (lambda () (interactive) (scroll-screen-and-cursor +5)))
 (global-set-key (kbd "C-c C-d") 'duplicate-line)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-<tab>") 'yas-expand)
-(global-set-key (kbd "C-x f") 'find-file-in-project)
-(global-set-key (kbd "<up>") 'scroll-screen-and-cursor-up)
+(global-set-key (kbd "C-x f") 'projectile-find-file)
+; (global-set-key (kbd "<up>") 'scroll-screen-and-cursor-up)
 (global-set-key (kbd "<C-M-268632080>") (lambda () (interactive) (other-window 1)))
-(global-set-key (kbd "<down>") 'scroll-screen-and-cursor-down)
+; (global-set-key (kbd "<down>") 'scroll-screen-and-cursor-down)
 (global-set-key (kbd "<C-M-268632078>") (lambda () (interactive) (other-window -1)))
 (global-unset-key (kbd "M-l"))
 (global-unset-key (kbd "M-u"))

@@ -8,6 +8,9 @@ tramp
 elpa
 .places
 eshell
-.yas-compiled-snippets
+*.yas-compiled-snippets.el
 TAGS
 *.elc
+.DS_Store
+projectile.cache
+projectile-bookmarks.eld

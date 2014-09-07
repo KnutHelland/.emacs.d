@@ -40,8 +40,7 @@
 
 (setq whitespace-style '(face tabs spaces tab-mark space-mark))
 
-(global-whitespace-mode t)
-
+; (global-whitespace-mode t)
 
 
 (provide 'appearance)

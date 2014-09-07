@@ -16,7 +16,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(flymake-errline ((((class color)) (:foreground "#073642"))))
+ ;; '(flymake-errline ((((class color)) (:foreground "#073642"))))
+ '(flymake-errline ((((class color)) ())))
  '(whitespace-hspace ((t nil)))
  '(whitespace-indentation ((t (:foreground "#333"))))
  '(whitespace-line ((t (:foreground "#333"))))
