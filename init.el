@@ -59,7 +59,9 @@
  'flx-ido
  'ido-vertical-mode
  'multiple-cursors
+ 'perspective
  'projectile
+ 'persp-projectile
  'expand-region)
 (package-initialize)
 
@@ -83,7 +85,12 @@
 (setq projectile-completion-system 'ido)
 (setq projectile-indexing-method 'alien)
 (setq projectile-enable-caching t)
+(setq projectile-remember-window-configs t)
 (setq projectile-file-exists-remote-cache-expire (* 10 60))
+
+(persp-mode)
+(require 'persp-projectile)
+(define-key projectile-mode-map (kbd "C-c p p") 'projectile-persp-switch-project)
 
 (setq org-hide-leading-stars t)
 (setq org-startup-indented t)
