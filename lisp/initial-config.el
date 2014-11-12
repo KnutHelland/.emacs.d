@@ -14,8 +14,8 @@
 (global-auto-revert-mode 1)
 
 ;; Also auto refresh dired, but be quiet about it
-(setq global-auto-revert-non-file-buffers t)
-(setq auto-revert-verbose nil)
+; (setq global-auto-revert-non-file-buffers nil)
+; (setq auto-revert-verbose nil)
 
 ;; Show keystrokes immediately
 (setq echo-keystrokes 0.000001)
@@ -60,8 +60,11 @@
 
 ;; Write backup files to own directory
 (setq backup-directory-alist
-      `(("." . ,(expand-file-name
+      `((".*" . ,(expand-file-name
                  (concat user-emacs-directory "backups")))))
+(setq auto-save-file-name-transforms
+          `((".*" ,(expand-file-name
+                 (concat user-emacs-directory "backups")) t)))
 
 ;; Make backups of files, even when they're in version control
 (setq vc-make-backup-files t)

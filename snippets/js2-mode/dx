@@ -11,11 +11,11 @@ define(['underscore',
 	         Backbone,
 	         dx) {
 
-	return ${1:Backbone.}.extend({
+		return ${1:Backbone.}.extend({
 
-		initialize: function() {
-			$0
-		}
+			initialize: function() {
+				$0
+			}
 
-	});
+		});
 });

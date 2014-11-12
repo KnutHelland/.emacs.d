@@ -1,0 +1,18 @@
+# name: api
+# key: api
+# --
+/**
+ * @api {${1:get}} /${2:apiurl} ${3:Description of method}
+ * @apiName ${4:GetSomething}
+ * @apiGroup ${5:MyApi}
+ * $0
+ * @apiParam {Number} id Id of the entry.
+ *
+ * @apiSuccess {String} message
+ * @apiSuccess {String} success true
+ * @apiSuccess {String} error false
+ *
+ * @apiError {String} error true
+ * @apiError {String} success false
+ * @apiError {String} message false
+ */

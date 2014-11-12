@@ -1,0 +1,9 @@
+# name: input
+# key: input
+# --
+<label for="$1">$2</label>
+<div class="input-wrapper">
+	 <input name="$1" type="text" value="{{${3:model.}}}">
+	 <span class="glyphicon glyphicon-pencil input-icon"></span>
+</div>
+$0

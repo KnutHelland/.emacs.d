@@ -1,0 +1,4 @@
+# name: fa
+# key: fa
+# --
+<i class="fa fa-${1:chevron-left}"></i>$0

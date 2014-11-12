@@ -11,14 +11,14 @@ define(['underscore',
 	         Backbone,
 	         dx) {
 
-	return Backbone.View.extend({
+		return Backbone.View.extend({
 
-		initialize: function() {
-			$0
-		},
+			initialize: function() {
+				$0
+			},
 
-		render: function() {
-			return this;
-		}
-	});
+			render: function() {
+				return this;
+			}
+		});
 });
