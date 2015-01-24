@@ -79,6 +79,7 @@
 ;; (require 'find-file-in-project)
 ;; (require 'setup-ffip)
 (require 'setup-php)
+(require 'setup-cpp)
 (require 'setup-ido)
 (require 'find-file-sudo)
 (eval-after-load 'clojure-mode '(require 'setup-clojure))
@@ -110,6 +111,7 @@
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.cljs\\'" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.ino\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.hbs\\'" . html-mode))
 
 ;; Global key bindings
