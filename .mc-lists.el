@@ -6,11 +6,13 @@
 		c-electric-brace
 		c-electric-delete-forward
 		c-electric-paren
+		c-electric-semi&comma
 		c-electric-slash
 		c-electric-star
-		c-electric-semi&comma
 		dired-toggle-read-only
+		goto-line
 		kill-region
+		org-kill-line
 		yas-expand
 		))
 
@@ -19,4 +21,6 @@
 		beginning-of-buffer
 		dired-do-touch
 		ido-find-file
+		ido-switch-buffer
+		ido-write-file
 		))

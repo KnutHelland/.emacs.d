@@ -38,7 +38,7 @@
   '(whitespace-tab ((t (:foreground "#333"))))
   '(whitespace-trailing ((t (:foreground "red" :background "yellow")))))
 
-(setq whitespace-style '(face tabs spaces tab-mark space-mark))
+(setq whitespace-style '(face tabs spaces tab-mark space-mark trailing))
 
 ; (global-whitespace-mode t)
 

@@ -132,6 +132,7 @@
 (global-set-key (kbd "C-c m") 'magit-status)
 (global-set-key (kbd "C-c l") 'magit-log)
 (global-set-key (kbd "C-x C-c") (lambda () (interactive) (if (yes-or-no-p "Really want to quit Emacs? ") (save-buffers-kill-terminal))))
+(global-set-key (kbd "M-h") 'ns-do-hide-emacs)
 (global-set-key (kbd "C-<tab>") 'yas-expand)
 (global-set-key (kbd "C-x f") 'projectile-find-file)
 ; (global-set-key (kbd "<up>") 'scroll-screen-and-cursor-up)

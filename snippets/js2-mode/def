@@ -1,13 +1,8 @@
 # key: def
 # name: def
-# expand-env: ((yas-indent-line 'fixed))
+# expand-env: ((yas-indent-line (quote fixed)))
 # --
-define(['underscore',
-        'jquery',
-        'backbone'],
-	function(_,
-	         $,
-	         Backbone) {
+define([], function() {
 
 	$0
 
