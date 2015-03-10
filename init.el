@@ -66,6 +66,7 @@
  'perspective
  'projectile
  'persp-projectile
+ 'jsx-mode
  'expand-region)
 (package-initialize)
 
@@ -109,6 +110,7 @@
 
 ;; File extensions:
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
 (add-to-list 'auto-mode-alist '("\\.cljs\\'" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.ino\\'" . c++-mode))
