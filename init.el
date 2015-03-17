@@ -99,6 +99,7 @@
 (define-key projectile-mode-map (kbd "C-c p g") 'projectile-grep)
 
 (add-hook 'html-mode-hook 'whitespace-mode)
+(add-hook 'less-mode-hook 'whitespace-mode)
 
 (persp-mode)
 (require 'persp-projectile)
